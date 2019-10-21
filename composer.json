@@ -1,0 +1,33 @@
+{
+	"name": "galo/eletter",
+	"description": "Electronic letter management system that will be integrated with the eCarta post office system.",
+	"minimum-stability": "stable",
+	"license": "MIT",
+	"version": "1.0.0",
+	"homepage": "https://github.com/giovannialo/eletter",
+	"authors": [
+		{
+			"name": "Giovanni A. L. Oliveira",
+			"email": "giovanni.al.oliveira@gmail.com",
+			"homepage": "https://github.com/giovannialo"
+		}
+	],
+	"config": {
+		"vendor-dir": "vendor"
+	},
+	"require": {
+		"coffeecode/datalayer": "^1.1",
+		"coffeecode/router": "^1.0",
+		"coffeecode/uploader": "^1.0",
+		"league/plates": "4.0.0-alpha",
+		"dompdf/dompdf": "^0.8.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"Source\\": "src/"
+		},
+		"files": [
+			"src/Config.php"
+		]
+	}
+}
