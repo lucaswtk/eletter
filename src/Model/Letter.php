@@ -11,19 +11,20 @@ class Letter extends DataLayer {
 	 */
 	public function __construct() {
 		parent::__construct('el_letters', [
-			'name',
+			'subject',
 			'content',
-			'model',
+			'template',
 			'lot',
 			'status',
 			'send',
-			'recipient_zipcode',
-			'recipient_street',
-			'recipient_number',
-			'recipient_neighborhood',
-			'recipient_city',
-			'recipient_state',
-			'recipient_country'
+			'recipient_name',
+			'recipient_addr_zipcode',
+			'recipient_addr_street',
+			'recipient_addr_number',
+			'recipient_addr_neighborhood',
+			'recipient_addr_city',
+			'recipient_addr_state',
+			'recipient_addr_country'
 		]);
 	}
 

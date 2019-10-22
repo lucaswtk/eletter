@@ -130,11 +130,8 @@
 				zoom: 1;
 			}
 
-			/* IE7 */
-
 			-->
 		</style>
-		<script type="text/javascript" src="cd2d9932-eab8-11e9-9d71-0cc47a792c0a_id_cd2d9932-eab8-11e9-9d71-0cc47a792c0a_files/wz_jsgraphics.js"></script>
 	</head>
 	<body>
 		<div class="document">

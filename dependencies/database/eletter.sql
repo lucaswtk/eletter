@@ -25,30 +25,35 @@ create table el_users (
     `created_at` timestamp null,
     `updated_at` timestamp null,
     foreign key (organ_id) 
-	references el_organs(id) 
+	references el_organs (id) 
 	on delete cascade 
 	on update no action
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table el_letters (
+	`organ_id` int not null,
 	`id` int primary key auto_increment,
     `subject` varchar(100) not null default '',
 	`content` text not null,
-    `model` int not null default 0,
+    `template` int not null default 0,
     `lot` int not null default 0,
     `status` int not null default 0,
 	`send` timestamp not null default current_timestamp,
     `recipient_name` varchar(65) not null default '',
-	`recipient_zipcode` varchar(10) not null default '',
-	`recipient_street` varchar(45) not null default '',
-	`recipient_number` varchar(10) not null default '',
-	`recipient_neighborhood` varchar(20) not null default '',
-	`recipient_complement` varchar(20) null,
-	`recipient_city` varchar(20) not null default '',
-	`recipient_state` varchar(2) not null default '',
-	`recipient_country` varchar(20) not null default '',
+	`recipient_addr_zipcode` varchar(10) not null default '',
+	`recipient_addr_street` varchar(45) not null default '',
+	`recipient_addr_number` varchar(10) not null default '',
+	`recipient_addr_neighborhood` varchar(20) not null default '',
+	`recipient_addr_complement` varchar(20) null,
+	`recipient_addr_city` varchar(20) not null default '',
+	`recipient_addr_state` varchar(2) not null default '',
+	`recipient_addr_country` varchar(20) not null default '',
     `created_at` timestamp null,
-	`updated_at` timestamp null
+	`updated_at` timestamp null,
+    foreign key (organ_id)
+    references el_organs (id)
+    on delete cascade
+    on update no action
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 create table el_letters_attachments (
@@ -56,7 +61,39 @@ create table el_letters_attachments (
 	`id` int primary key auto_increment,
 	`data` mediumblob not null,
 	foreign key (letter_id) 
-	references el_letters(id) 
+	references el_letters (id) 
 	on delete cascade 
 	on update no action
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table el_letters_templates (
+	`organ_id` int not null,
+	`id` int primary key auto_increment,
+	`name` varchar(45) not null default '',
+    `content` longtext not null,
+	`created_at` timestamp null,
+	`updated_at` timestamp null,
+    foreign key (organ_id)
+    references el_organs (id)
+    on delete cascade
+    on update no action
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table el_letters_templates_fields (
+	`template_id` int not null,
+	`id` int primary key auto_increment,
+	`name` varchar(20) not null default '',
+    `required` int null default 0,
+    `order` int null,
+    foreign key (template_id)
+    references el_letters_templates (id)
+    on delete cascade
+    on update no action
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+create table el_letters_templates_fields_values (
+	`letter_id` int not null,
+	`field_id` int not null,
+    `id` int primary key auto_increment,
+	`value` text not null default ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

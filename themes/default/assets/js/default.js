@@ -349,3 +349,61 @@ const customFileInput = (function () {
 	});
 
 })();
+
+
+/**
+ * Form Generator
+ * Gerador de campos de formulário.
+ */
+
+'use strict';
+
+const formGenerator = (function () {
+
+	/*
+	 * Variáveis
+	 */
+
+	let generator = '[data-formGenerator]';
+	let buttonAdd = '[data-formGenerator] button';
+
+	/*
+	 * Funções
+	 */
+	function generate(el) {
+
+		// Obtém o container onde será exibido os campos gerados
+		let parent = el.parents(generator);
+
+		// Obtém a referência: atributo identificador do container
+		let reference = parent.attr('data-formGenerator');
+
+		// Container onde será anexado os campos gerados
+		let container = $('[data-generatedForm="' + reference + '"]');
+
+		// Tipo do campo
+		let type = parent.find('[data-formGenerator-type]').val();
+
+		// Nome
+		let name = parent.find('[data-formGenerator-name]').val();
+
+		// Obrigatório
+		let required = parent.find('[data-formGenerator-required]').val();
+
+		// Debug
+		console.log(container)
+		console.log(type)
+		console.log(name)
+		console.log(required)
+	}
+
+	/*
+	 * Eventos
+	 */
+
+	// Monitora o evento de click
+	$('html').on('click', buttonAdd, function () {
+		generate($(this));
+	});
+
+})();

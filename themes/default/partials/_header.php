@@ -51,10 +51,11 @@
 							Carta
 						</a>
 						<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarLetter">
-							<a class="dropdown-item" href="<?= BASE . '/letter/template/new'; ?>">Novo template</a>
-							<a class="dropdown-item" href="<?= BASE . '/letter/template/all'; ?>">Listar templates</a>
 							<a class="dropdown-item" href="<?= BASE . '/letter/new'; ?>">Nova</a>
 							<a class="dropdown-item" href="<?= BASE . '/letter/all'; ?>">Listar todas</a>
+							<hr class="dropdown-divider">
+							<a class="dropdown-item" href="<?= BASE . '/letter/template/new'; ?>">Novo template</a>
+							<a class="dropdown-item" href="<?= BASE . '/letter/template/all'; ?>">Listar templates</a>
 						</div>
 					</li>
 				<?php endif; ?>
