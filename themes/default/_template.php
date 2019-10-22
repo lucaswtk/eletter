@@ -5,6 +5,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+		<base href="<?= BASE; ?>" data-theme="<?= THEME; ?>">
+
 		<!-- Bootstrap CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
@@ -13,6 +15,15 @@
 		<?= $v->section('css'); ?>
 
 		<title><?= $title; ?></title>
+
+		<script type="text/javascript">
+
+			// BASE
+			const BASE = document.getElementsByTagName('base')[0].href;
+
+			// THEME
+			const THEME = document.getElementsByTagName('base')[0].getAttribute('data-theme');
+		</script>
 	</head>
 	<body <?= !empty($bodyClass) ? "class=\"{$bodyClass}\"" : null; ?><?= !empty($bodyId) ? "class=\"{$bodyId}\"" : null; ?>>
 

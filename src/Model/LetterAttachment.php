@@ -10,7 +10,7 @@ class LetterAttachment extends DataLayer {
 		parent::__construct('el_letters_attachments', [
 			'letter_id',
 			'data'
-		], 'id', false);
+		]);
 	}
 
 }

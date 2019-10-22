@@ -109,31 +109,21 @@ $v->layout('_template', [
 					<!-- Organ -->
 					<div class="form-group">
 						<label>Orgão:</label>
-						<select class="form-control" name="organ_id">
+						<select class="form-control" name="organ_id" <?= (empty($id) || !empty($id) && $_SESSION['userLogin']['id'] != $id && $_SESSION['userLogin']['status'] == USER_DEV ? 'required' : ''); ?>>
 							<?php
-							// Desenvolvedor - Exibe todos os órgãos cadastrados
-							if ($_SESSION['userLogin']['status'] == USER_DEV):
-
-								// Somente para desenvolvedor
-								if ($_SESSION['userLogin']['id'] == $id):
-									echo '<option value="">Não associar</option>';
-								endif;
-
-								if (!empty($organs)):
-									foreach ($organs as $organ):
-										echo "<option value='{$organ->id}'";
-										echo !empty($id) ? ($organ->id == $organ_id ? ' selected' : '') : '';
-										echo ">{$organ->initials}</option>" . PHP_EOL;
-									endforeach;
-								endif;
-
-							// Update
-							elseif (!empty($id)):
-								echo "<option value='{$organ_id}'>{$organ_name}</option>";
-
-							// Create
-							else:
-								echo "<option value='{$organs->id}'>{$organs->name}</option>";
+							if (!empty($id) && $id == $_SESSION['userLogin']['id']):
+								echo '<option>Não existe associação</option>';
+							elseif (!$organs):
+								echo '<option>Não existem órgãos cadastrados!</option>';
+							elseif (!empty($organs->id)):
+								echo "<option value='{$organs->id}'>{$organs->initials}</option>";
+							elseif ($organs):
+								echo '<option></option>';
+								foreach ($organs as $organ):
+									echo "<option value='{$organ->id}'";
+									echo !empty($id) ? ($organ->id == $organ_id ? ' selected' : '') : '';
+									echo ">{$organ->initials}</option>" . PHP_EOL;
+								endforeach;
 							endif;
 							?>
 						</select>

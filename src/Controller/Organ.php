@@ -168,7 +168,7 @@ class Organ {
 	 * onde o ID do órgão pode ser recuperado através do parâmetro $data.
 	 * </p>
 	 *
-	 * @param array $data Array com dados essenciais para processar os dados de um usuário (Ex.: id)
+	 * @param array $data Dados necessários para executar a operação. (Ex.: id)
 	 */
 	public function edit(array $data): void {
 
@@ -235,7 +235,7 @@ class Organ {
 			return;
 		}
 
-		// Remove usuário da lista
+		// Remove órgão da lista
 		$callback['deleteHtml'] = "organ-{$organId}";
 
 		echo json_encode($callback);

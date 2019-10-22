@@ -18,15 +18,15 @@ $v->layout('_template', [
 		<!-- Divider -->
 		<hr class="mb-5">
 
-		<!-- Create User -->
-		<form method="post" action="<?= (!empty($id) ? $router->route('letterTemplate.update') : $router->route('letterTemplate.create')); ?>">
-			<?php if (!empty($id)): ?>
-				<input type="hidden" name="id" value="<?= $id; ?>">
-			<?php endif; ?>
+		<!-- Row -->
+		<div class="row">
+			<div class="col-md-8">
 
-			<!-- Row -->
-			<div class="row">
-				<div class="col-md-8">
+				<!-- Create User -->
+				<form method="post" action="<?= (!empty($id) ? $router->route('template.update') : $router->route('template.create')); ?>">
+					<?php if (!empty($id)): ?>
+						<input type="hidden" name="id" value="<?= $id; ?>">
+					<?php endif; ?>
 
 					<!-- Name -->
 					<div class="form-group">
@@ -36,8 +36,15 @@ $v->layout('_template', [
 
 					<!-- Content -->
 					<div class="form-group">
-						<label>Conteúdo HTML:</label>
-						<textarea class="form-control" name="content" rows="10" required><?= (!empty($content) ? $content : ''); ?></textarea>
+						<div class="d-flex align-items-center justify-content-between mb-2">
+							<label class="mb-0">Conteúdo HTML:</label>
+							<?php if (!empty($id)): ?>
+								<button class="btn btn-sm btn-light" type="button" data-previewPDF="content" data-id="<?= $id; ?>">
+									Pré-visualizar
+								</button>
+							<?php endif; ?>
+						</div>
+						<textarea class="form-control" name="content" rows="14" required><?= (!empty($content) ? $content : ''); ?></textarea>
 					</div>
 
 					<!-- Actions -->
@@ -53,69 +60,39 @@ $v->layout('_template', [
 							Resetar
 						</button>
 					</div>
-				</div>
-				<!--/.col-->
-
-				<div class="col-md">
-
-					<!-- Card -->
-					<div class="card">
-						<div class="card-body">
-							<!-- Heading -->
-							<p class="font-weight-bold">
-								Campos Específicos
-							</p>
-
-							<!-- Generated Form -->
-							<div data-generatedForm="template">
-								Nenhum campo foi adicionado.
-							</div>
-
-							<!-- Divider -->
-							<hr>
-
-							<!-- Form Generator -->
-							<div data-formGenerator="template">
-
-								<!-- Type -->
-								<div class="form-group">
-									<label>Atributo type:</label>
-									<select class="form-control" data-formGenerator-type>
-										<option value="text">Texto</option>
-										<option value="date">Data</option>
-										<option value="email">E-mail</option>
-									</select>
-								</div>
-
-								<!-- Name -->
-								<div class="form-group">
-									<labels>Atributo name:</labels>
-									<input class="form-control" type="text" data-formGenerator-name>
-								</div>
-
-								<!-- Requried -->
-								<div class="form-group">
-									<label>Obrigatório:</label>
-									<select class="form-control" data-formGenerator-required>
-										<option value="0">Não</option>
-										<option value="1">Sim</option>
-									</select>
-								</div>
-
-								<!-- Add -->
-								<button class="btn btn-primary btn-block" type="button">
-									Adicionar
-								</button>
-							</div>
-							<!--/.formGenerator-->
-						</div>
-						<!--/.card-body-->
-					</div>
-					<!--/.card-->
-				</div>
-				<!--/.col-->
+				</form>
 			</div>
-			<!--/.row-->
-		</form>
+			<!--/.col-->
+
+			<div class="col-md">
+
+				<!-- Card -->
+				<div class="card">
+					<div class="card-body">
+						<!-- Heading -->
+						<h5 class="font-weight-bold">
+							Metadados
+						</h5>
+
+						<!-- Divider -->
+						<hr>
+
+						<?php if (empty($id)): ?>
+							<p class="mb-0">
+								Os metadados serão liberados após o cadastro do template.
+							</p>
+						<?php
+						else:
+
+						endif;
+						?>
+					</div>
+					<!--/.card-body-->
+				</div>
+				<!--/.card-->
+			</div>
+			<!--/.col-->
+		</div>
+		<!--/.row-->
 	</div>
 </main>

@@ -6,14 +6,12 @@ use CoffeeCode\DataLayer\DataLayer;
 
 class Letter extends DataLayer {
 
-	/**
-	 * Organ constructor.
-	 */
 	public function __construct() {
 		parent::__construct('el_letters', [
+			'organ_id',
+			'template_id',
 			'subject',
 			'content',
-			'template',
 			'lot',
 			'status',
 			'send',

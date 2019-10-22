@@ -62,8 +62,24 @@ $router->post('/deleteBrand', 'Organ:deleteBrand', 'organ.deleteBrand');
 $router->group('letter');
 $router->get('/new', 'Letter:new', 'letter.new');
 $router->get('/all', 'Letter:all', 'letter.all');
-$router->get('/template/new', 'LetterTemplate:new', 'letterTemplate.new');
-$router->get('/template/all', 'LetterTemplate:all', 'letterTemplate.all');
+
+$router->get('/template/new', 'Template:new', 'template.new');
+$router->get('/template/all', 'Template:all', 'template.all');
+$router->get('/template/preview/', 'Template:previewPDF', 'template.previewPDF');
+$router->get('/template/preview/{id}', 'Template:previewPDF', 'template.previewPDF');
+$router->get('/template/edit', 'Template:edit', 'template.edit');
+$router->get('/template/edit/{id}', 'Template:edit', 'template.edit');
+$router->post('/template/create', 'Template:create', 'template.create');
+$router->post('/template/update', 'Template:create', 'template.update');
+$router->post('/template/delete', 'Template:delete', 'template.delete');
+
+$router->get('/metadata/new', 'Field:new', 'field.new');
+$router->get('/metadata/all', 'Field:all', 'field.all');
+$router->get('/metadata/edit', 'Field:edit', 'field.edit');
+$router->get('/metadata/edit/{id}', 'Field:edit', 'field.edit');
+$router->post('/metadata/create', 'Field:create', 'field.create');
+$router->post('/metadata/update', 'Field:create', 'field.update');
+$router->post('/metadata/delete', 'Field:delete', 'field.delete');
 
 // Executa o roteador
 $router->dispatch();

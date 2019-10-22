@@ -81,7 +81,8 @@ function errorMessage(int $error): string {
 		13 => 'A imagem para a logo não possui formato válido',
 		14 => 'Órgão não existe',
 		15 => 'Logo não encontrada',
-		16 => 'Sigla já cadastrada'
+		16 => 'Sigla já cadastrada',
+		17 => 'Metadado não existe'
 	];
 
 	return $message[$error];

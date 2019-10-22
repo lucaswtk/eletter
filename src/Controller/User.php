@@ -40,12 +40,13 @@ class User {
 	 * </p>
 	 */
 	public function new(): void {
-
-		// Consulta todos os órgãos se o login ativo for de um desenvolvedor
 		if ($_SESSION['userLogin']['status'] == USER_DEV) {
+
+			// Consulta todos os órgãos se o login ativo for de um desenvolvedor
 			$organs = (new \Source\Model\Organ())->find()->fetch(true);
-		} // Consulta o orgão relacionado
-		else {
+		} else {
+
+			// Consulta o orgão relacionado
 			$organs = (new \Source\Model\Organ())->findById($_SESSION['userLogin']['organ_id']);
 		}
 
@@ -60,12 +61,13 @@ class User {
 	 * </p>
 	 */
 	public function all(): void {
-
-		// Consulta todos os usuários se o login ativo for de um desenvolvedor
 		if ($_SESSION['userLogin']['status'] == USER_DEV) {
+
+			// Consulta todos os usuários se o login ativo for de um desenvolvedor
 			$users = (new \Source\Model\User())->find()->fetch(true);
-		} // Consulta todos os usuarários de acordo com o orgão relacionado
-		else {
+		} else {
+
+			// Consulta todos os usuarários de acordo com o orgão relacionado
 			$users = (new \Source\Model\User())->find('organ_id = :id', "id={$_SESSION['userLogin']['organ_id']}")->fetch(true);
 		}
 
@@ -226,7 +228,7 @@ class User {
 	 * onde o ID do usuário pode ser recuperado através do parâmetro $data.
 	 * </p>
 	 *
-	 * @param array $data Array com dados essenciais para processar os dados de um usuário (Ex.: id)
+	 * @param array $data Dados necessários para executar a operação. (Ex.: id)
 	 */
 	public function edit(array $data): void {
 
@@ -257,7 +259,7 @@ class User {
 			'password' => $user->password,
 			'status' => $user->status,
 			'organ_id' => $user->organ_id,
-			'organ_name' => $user->getOrgan()->name,
+			'organ_name' => ($user->organ_id ? $user->getOrgan()->name : ''),
 			'organs' => (new \Source\Model\Organ())->find()->fetch(true)
 		]);
 	}

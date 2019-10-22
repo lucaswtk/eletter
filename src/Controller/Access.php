@@ -38,7 +38,7 @@ class Access {
 
 		// Verifica se existe sessão ativa
 		if (isset($_SESSION['userLogin']) && $_SESSION['userLogin']['status'] && $_SESSION['userLogin']['status'] != 0) {
-			$this->router->redirect('system.home');
+			$this->router->redirect('dashboard.home');
 		}
 
 		echo $this->view->render('signIn');

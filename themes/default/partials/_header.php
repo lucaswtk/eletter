@@ -56,6 +56,9 @@
 							<hr class="dropdown-divider">
 							<a class="dropdown-item" href="<?= BASE . '/letter/template/new'; ?>">Novo template</a>
 							<a class="dropdown-item" href="<?= BASE . '/letter/template/all'; ?>">Listar templates</a>
+							<hr class="dropdown-divider">
+							<a class="dropdown-item" href="<?= BASE . '/letter/metadata/new'; ?>">Novo metadado</a>
+							<a class="dropdown-item" href="<?= BASE . '/letter/metadata/all'; ?>">Listar metadados</a>
 						</div>
 					</li>
 				<?php endif; ?>
