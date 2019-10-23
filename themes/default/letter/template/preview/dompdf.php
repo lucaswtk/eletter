@@ -5,11 +5,13 @@ require __DIR__ . '/../../../../../vendor/autoload.php';
 use Dompdf\Dompdf;
 use Source\Model\Template;
 
-// Instância do modelo de template
-$template = new Template();
+// Consulta se existe template
+$template = (new Template())->findById($id);
 
-// Obtém o conteúdo html do template
-$content = $template->findById($id)->data()->content;
+// Não existe template
+if (empty($template)) {
+	$router->redirect('template.all');
+}
 
 // Instância de DomPDF
 $dompdf = new Dompdf();
@@ -18,7 +20,7 @@ $dompdf = new Dompdf();
 ob_start();
 
 // Escreve o conteúdo HTML na página
-echo htmlspecialchars_decode($content);
+echo str_replace('{{page_title}}', $template->name, htmlspecialchars_decode($template->content));
 
 // Carrega o código HTML no arquivo pdf
 $dompdf->loadHtml(ob_get_clean());

@@ -122,7 +122,7 @@ create table el_templates_has_fields (
 	`field_id` int not null,
     `id` int primary key auto_increment,
     `required` int null default 0,
-    `order` int null default 0,
+    `sequence` int null default 0,
     
     foreign key (template_id)
     references el_templates (id)

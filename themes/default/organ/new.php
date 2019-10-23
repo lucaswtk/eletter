@@ -43,7 +43,7 @@ $v->layout('_template', [
 								<label class="custom-file-label" for="inputGroupFileBrand" data-browse="Escolher arquivo" data-text-default="Nenhum arquivo selecionado">Nenhum arquivo selecionado</label>
 							</div>
 							<div class="input-group-append" <?= (empty($brand) ? 'style="display: none;"' : null); ?> data-showHtml="brand" data-hideHtml="brand">
-								<button class="btn btn-danger" type="button" data-action="delete" data-url="<?= $router->route('organ.deleteBrand'); ?>" data-id="<?= $id; ?>">
+								<button class="btn btn-danger" type="button" data-ajaxRequest data-url="<?= $router->route('organ.deleteBrand'); ?>" data-id="<?= $id; ?>">
 									Remover
 								</button>
 							</div>

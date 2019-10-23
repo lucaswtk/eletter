@@ -67,7 +67,7 @@ $v->layout('_template', [
 										</a>
 
 										<!-- Delete -->
-										<button class="btn btn-sm btn-outline-danger" data-action="delete" data-url="<?= $router->route('user.delete'); ?>" data-id="<?= $user->id; ?>">
+										<button class="btn btn-sm btn-outline-danger" data-ajaxRequest data-url="<?= $router->route('user.delete'); ?>" data-id="<?= $user->id; ?>">
 											Deletar
 										</button>
 									</td>

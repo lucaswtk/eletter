@@ -171,10 +171,197 @@ class Template {
 			$this->router->redirect('template.all');
 		}
 
+		// Consulta os metadados relacionados com o template
+		$templateHasMetadata = (new \Source\Model\TemplateHasField())->find('template_id = :id', "id={$templateId}")->fetch(true);
+
+		// IDs dos metadados relacionados
+		$metadataEnabled = [];
+
+		// IDs dos metadados relacionados que são obrigatórios
+		$metadataRequired = [];
+
+		if ($templateHasMetadata) {
+			foreach ($templateHasMetadata as $metadata) {
+				$metadataEnabled[] = $metadata->field_id;
+
+				if ($metadata->required) {
+					$metadataRequired[] = $metadata->field_id;
+				}
+			}
+		}
+
 		echo $this->view->render('letter/template/new', [
 			'id' => $template->id,
 			'name' => $template->name,
-			'content' => $template->content
+			'content' => $template->content,
+			'metadata' => (new \Source\Model\Field())->find()->fetch(true),
+			'metadataEnabled' => $metadataEnabled,
+			'metadataRequired' => $metadataRequired
 		]);
 	}
+
+	/**
+	 * delete. <p>
+	 * Responsável por deletar um template específico onde o ID do template pode
+	 * ser recuperado através do parâmetro $data.
+	 * </p>
+	 *
+	 * @param array $data Dados necessários para executar a operação. (Ex.: id)
+	 */
+	public function delete(array $data): void {
+
+		// Retorno
+		$callback = ['error' => [
+			'code' => 0,
+			'message' => ''
+		]];
+
+		// Previne dados maliciosos
+		$templateId = filter_var($data['id'], FILTER_SANITIZE_NUMBER_INT);
+
+		// Instância do modelo de template
+		$template = (new \Source\Model\Template())->findById($templateId);
+
+		// Template não existe
+		if (!$template) {
+			$callback['error']['code'] = 18;
+			$callback['error']['message'] = errorMessage($callback['error']['code']);
+
+			echo json_encode($callback);
+			return;
+		}
+
+		// Remoção não realizada
+		if (!$template->destroy()) {
+			return;
+		}
+
+		// Remove template da lista
+		$callback['deleteHtml'] = "template-{$templateId}";
+
+		echo json_encode($callback);
+	}
+
+	/**
+	 * createMetadata. <p>
+	 * Resposável por relacionar os metadados com os templates.
+	 * </p>
+	 *
+	 * @param array $data Dados necessários para executar a operação. (Ex.: template_id, field_id)
+	 */
+	public function createMetadata(array $data): void {
+
+		// Retorno
+		$callback = ['error' => [
+			'code' => 0,
+			'message' => ''
+		]];
+
+		// Previne dados maliciosos
+		$fieldData = filter_var_array($data, FILTER_SANITIZE_NUMBER_INT);
+
+		// Update
+		if (isset($fieldData['required'])) {
+
+			// Instância do modelo de template relacionado com metadado
+			$template = (new \Source\Model\TemplateHasField())->find('template_id = :template AND field_id = :field', "template={$fieldData['template_id']}&field={$fieldData['field_id']}")->fetch();
+
+			// Não existe relação
+			if (empty($template)) {
+				$callback['error']['code'] = 20;
+				$callback['error']['message'] = errorMessage($callback['error']['code']);
+
+				echo json_encode($callback);
+				return;
+			}
+		}
+
+		// Create
+		if (!isset($fieldData['required'])) {
+
+			// Instância do modelo de template relacionado com metadado
+			$template = new \Source\Model\TemplateHasField();
+		}
+
+		// Seta os dados ao objeto
+		$template->template_id = $fieldData['template_id'];
+		$template->field_id = $fieldData['field_id'];
+		$template->required = !empty($fieldData['required']) ? 1 : 0;
+
+		// Cadastra/Atualiza
+		$try = $template->save();
+
+		// Cadastro/Atualização não realizado
+		if (!$try) {
+			return;
+		}
+
+		// Update
+		if (isset($fieldData['required'])) {
+			if ($fieldData['required'] == 1) {
+				$callback['hideHtmlNoEffect'] = ["update-1-{$template->field_id}"];
+				$callback['showHtmlNoEffect'] = ["update-0-{$template->field_id}"];
+			} else {
+				$callback['hideHtmlNoEffect'] = ["update-0-{$template->field_id}"];
+				$callback['showHtmlNoEffect'] = ["update-1-{$template->field_id}"];
+			}
+		}
+
+		// Create
+		if (!isset($fieldData['required'])) {
+			$callback['hideHtmlNoEffect'] = ["add-{$template->field_id}"];
+			$callback['showHtmlNoEffect'] = ["remove-{$template->field_id}"];
+		}
+
+		echo json_encode($callback);
+	}
+
+	/**
+	 * deleteMetadata. <p>
+	 * Resposável por deletar a relação entre os metadados com os templates.
+	 * </p>
+	 *
+	 * @param array $data Dados necessários para executar a operação. (Ex.: template_id, field_id)
+	 */
+	public function deleteMetadata(array $data): void {
+
+		// Retorno
+		$callback = ['error' => [
+			'code' => 0,
+			'message' => ''
+		]];
+
+		// Previne dados maliciosos
+		$templateData = filter_var_array($data, FILTER_SANITIZE_NUMBER_INT);
+
+		// Instância do modelo de template relacionado com metadado
+		$template = (new \Source\Model\TemplateHasField())->find('template_id = :template AND field_id = :field', "template={$templateData['template_id']}&field={$templateData['field_id']}")->fetch();
+
+		// Template não existe
+		if (!$template) {
+			$callback['error']['code'] = 20;
+			$callback['error']['message'] = errorMessage($callback['error']['code']);
+
+			echo json_encode($callback);
+			return;
+		}
+
+		// Remoção não realizada
+		if (!$template->destroy()) {
+			return;
+		}
+
+		$callback['hideHtmlNoEffect'] = [
+			"remove-{$template->field_id}",
+			"update-0-{$template->field_id}"
+		];
+
+		$callback['showHtmlNoEffect'] = [
+			"add-{$template->field_id}",
+			"update-1-{$template->field_id}"
+		];
+
+		echo json_encode($callback);
+	}
+
 }

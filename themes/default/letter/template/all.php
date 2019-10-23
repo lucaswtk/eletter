@@ -1,6 +1,6 @@
 <?php
 $v->layout('_template', [
-	'title' => SITE_NAME . ' - Metadados Cadastrados'
+	'title' => SITE_NAME . ' - Templates Cadastrados'
 ]);
 ?>
 
@@ -9,7 +9,7 @@ $v->layout('_template', [
 
 		<!-- Heading -->
 		<h1 class="h3">
-			Metadados Cadastrados
+			Templates Cadastrados
 		</h1>
 
 		<!-- Subheading -->
@@ -23,37 +23,33 @@ $v->layout('_template', [
 				<table class="table table-striped table-borderlesss mb-0">
 					<thead class="thead-dark">
 						<tr>
-							<th scope="col">Rótulo</th>
-							<th scope="col">Localizador</th>
+							<th scope="col">Nome</th>
 							<th scope="col"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
-						if (empty($metadatas)):
+						if (empty($templates)):
 							$v->insert('partials/_table-noRegister', [
-								'tableNoRegister' => $metadatas,
-								'tableNoRegisterColspan' => '3',
-								'tableNoRegisterApp' => 'metadados'
+								'tableNoRegister' => $templates,
+								'tableNoRegisterColspan' => '2',
+								'tableNoRegisterApp' => 'templates'
 							]);
 						else:
-							foreach ($metadatas as $metadata): ?>
-								<tr data-deleteHtml="metadata-<?= $metadata->id; ?>">
+							foreach ($templates as $template): ?>
+								<tr data-deleteHtml="template-<?= $template->id; ?>">
 									<td>
-										<?= $metadata->label; ?>
-									</td>
-									<td>
-										{{<?= $metadata->name; ?>}}
+										<?= $template->name; ?>
 									</td>
 									<td class="text-right" style="width: 10rem;">
 
 										<!-- Edit -->
-										<a class="btn btn-sm btn-outline-primary" href="<?= "{$router->route('field.edit')}/{$metadata->id}"; ?>" title="Editar detalhes">
+										<a class="btn btn-sm btn-outline-primary" href="<?= "{$router->route('template.edit')}/{$template->id}"; ?>" title="Editar detalhes">
 											Editar
 										</a>
 
 										<!-- Delete -->
-										<button class="btn btn-sm btn-outline-danger" data-ajaxRequest data-url="<?= $router->route('field.delete'); ?>" data-id="<?= $metadata->id; ?>">
+										<button class="btn btn-sm btn-outline-danger" data-ajaxRequest data-url="<?= $router->route('template.delete'); ?>" data-id="<?= $template->id; ?>">
 											Deletar
 										</button>
 									</td>
@@ -62,9 +58,9 @@ $v->layout('_template', [
 							endforeach;
 
 							$v->insert('partials/_table-noRegister', [
-								'tableNoRegister' => $metadatas,
-								'tableNoRegisterColspan' => '3',
-								'tableNoRegisterApp' => 'metadados'
+								'tableNoRegister' => $templates,
+								'tableNoRegisterColspan' => '2',
+								'tableNoRegisterApp' => 'templates'
 							]);
 						endif;
 						?>

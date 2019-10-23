@@ -1,6 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+		<title>Pré-visualização: {{page_title}}</title>
 		<style type="text/css">
 			<!--
 			* {
@@ -234,20 +235,19 @@
 
 			<p>
 				Prezado Senhor (a),<br>
-				<u><b>Foi identficada uma alteração da área de construção do imóvel descrito acima</b></u>.
+				<u><b>Foi identficada uma alteração da área de construção do imóvel descrito acima.</b></u>
 			</p>
 			<p>
 				No cadastro da Secretaria Municipal de Economia o referido imóvel estava com área de construção de {{area}} mt2.
 				Após verificação identficou-se que o imóvel tem na verdade {{area_geo_semec}} mt2 de área de construção.
 			</p>
 			<p>
-				Essa difererença vai
-				ocasionar um lançamento de valor complementar do IPTU e brevemente chegará,no seu endereço, um novo carnê com
-				esse complemento. Esse complemento não substtui o carnê doIPTU 2018 já enviado e deve ser pago em conjunto com
-				aquele.Discordando da alteração ora identficada de área construída, V.Sa. poderá solicitar revisãojustficando o
-				motvo e anexando documentos que comprovam a situação do imóvel (ver abaixo).Essa revisão deverá ser agendada pelo
-				site: www.semecmaceio.com/notficacao . O nãoagendamento até26/10/2018 configurará concordância e aceitação tácita
-				da nova área de construção
+				Essa difererença vai ocasionar um lançamento de valor complementar do IPTU e brevemente chegará, no seu endereço,
+				um novo carnê com esse complemento. Esse complemento não substitui o carnê do IPTU 2018 já enviado e deve ser pago
+				em conjunto com aquele. Discordando da alteração ora identficada de área construída, V. Sa. poderá solicitar revisão
+				justficando o motvo e anexando documentos que comprovam a situação do imóvel (ver abaixo). Essa revisão deverá ser
+				agendada pelo site: www.semecmaceio.com/notficacao. O não agendamento até 26/10/2018 configurará concordância e
+				aceitação tácita da nova área de construção.
 			</p>
 			<p>
 				Obs: Documentos que comprovam a situação do imóvel:

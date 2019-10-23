@@ -260,7 +260,7 @@ class User {
 			'status' => $user->status,
 			'organ_id' => $user->organ_id,
 			'organ_name' => ($user->organ_id ? $user->getOrgan()->name : ''),
-			'organs' => (new \Source\Model\Organ())->find()->fetch(true)
+			'organs' => $_SESSION['userLogin']['status'] == USER_DEV ? (new \Source\Model\Organ())->find()->fetch(true) : (new \Source\Model\Organ())->findById($user->organ_id)
 		]);
 	}
 

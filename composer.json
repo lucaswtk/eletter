@@ -20,7 +20,8 @@
 		"coffeecode/router": "^1.0",
 		"coffeecode/uploader": "^1.0",
 		"league/plates": "4.0.0-alpha",
-		"dompdf/dompdf": "^0.8.3"
+		"dompdf/dompdf": "^0.8.3",
+		"ext-json": "*"
 	},
 	"autoload": {
 		"psr-4": {

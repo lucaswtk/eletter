@@ -48,7 +48,7 @@ class Field {
 	 */
 	public function all() {
 		echo $this->view->render('letter/metadata/all', [
-			'metadatas' => (new \Source\Model\Field())->find()->fetch(true)
+			'metadatas' => (new \Source\Model\Field())->find('organ_id = :id', "id={$_SESSION['userLogin']['organ_id']}")->fetch(true)
 		]);
 	}
 

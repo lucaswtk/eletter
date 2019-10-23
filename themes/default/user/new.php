@@ -43,7 +43,7 @@ $v->layout('_template', [
 								<label class="custom-file-label" for="inputGroupFileAvatar" data-browse="Escolher arquivo" data-text-default="Nenhum arquivo selecionado">Nenhum arquivo selecionado</label>
 							</div>
 							<div class="input-group-append" <?= (empty($avatar) ? 'style="display: none;"' : null); ?> data-showHtml="avatar" data-hideHtml="avatar">
-								<button class="btn btn-danger" type="button" data-action="delete" data-url="<?= $router->route('user.deleteAvatar'); ?>" data-id="<?= $id; ?>">Remover</button>
+								<button class="btn btn-danger" type="button" data-ajaxRequest data-url="<?= $router->route('user.deleteAvatar'); ?>" data-id="<?= $id; ?>">Remover</button>
 							</div>
 						</div>
 					</div>
@@ -109,9 +109,9 @@ $v->layout('_template', [
 					<!-- Organ -->
 					<div class="form-group">
 						<label>Orgão:</label>
-						<select class="form-control" name="organ_id" <?= (empty($id) || !empty($id) && $_SESSION['userLogin']['id'] != $id && $_SESSION['userLogin']['status'] == USER_DEV ? 'required' : ''); ?>>
+						<select class="form-control" name="organ_id" <?= (empty($id) || $_SESSION['userLogin']['status'] != USER_DEV || !empty($id) && $_SESSION['userLogin']['id'] != $id && $_SESSION['userLogin']['status'] == USER_DEV ? 'required' : ''); ?>>
 							<?php
-							if (!empty($id) && $id == $_SESSION['userLogin']['id']):
+							if (!empty($id) && $id == $_SESSION['userLogin']['id'] && $_SESSION['userLogin']['status'] == USER_DEV):
 								echo '<option>Não existe associação</option>';
 							elseif (!$organs):
 								echo '<option>Não existem órgãos cadastrados!</option>';

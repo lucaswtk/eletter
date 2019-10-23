@@ -1,17 +1,17 @@
 /**
- * Ajax Mode
+ * Ajax Form
  * Coloca todos os formulários em modo ajax.
  */
 
 'use strict';
 
-const ajaxMode = (function () {
+const ajaxForm = (function () {
 
 	/*
 	 * Variáveis
 	 */
 
-	let form = 'form:not(.no-ajax)';
+	let toggle = 'form:not(.no-ajax)';
 
 	/*
 	 * Funções
@@ -153,7 +153,7 @@ const ajaxMode = (function () {
 	 */
 
 	// Monitora o evento submit
-	$('html').on('submit', form, function (e) {
+	$('html').on('submit', toggle, function (e) {
 
 		// Bloqueia o refresh da página
 		e.preventDefault();
@@ -166,33 +166,34 @@ const ajaxMode = (function () {
 
 
 /**
- * Actions
- * Ações de editar, deletar utilizando ajax.
+ * Ajax Request
+ * Executa requisições ajax sem a necessidade de um formulário.
  */
 
 'use strict';
 
-const actions = (function () {
+const ajaxRequest = (function () {
 
 	/*
 	 * Variáveis
 	 */
 
-	let toggle = '[data-action]';
+	let toggle = '[data-ajaxRequest]';
 
 	/*
 	 * Funções
 	 */
 
 	/**
-	 * remove. <p>
-	 * Responsável pela por requisições de remoção de dados pelo método POST.
+	 * request. <p>
+	 * Responsável por efetuar requisições sem a necessidade de um formulário.
+	 * Os dados podem ser passados através de atributos personalizados.
 	 * </p>
 	 *
 	 * @param el Objeto jQuery do elemento clicado
 	 * @param data Dados recuperados de atributos personalizados (Ex.: data-x)
 	 */
-	function remove(el, data) {
+	function request(el, data) {
 
 		// Inicia requisição
 		let request = $.ajax({
@@ -216,6 +217,28 @@ const actions = (function () {
 				if (typeof response.updateSrc === 'object') {
 					$.each(response.updateSrc, function (key, value) {
 						$('[data-updateSrc="' + key + '"]').attr('src', value);
+					});
+				}
+			}
+
+			// Exibe html (show sem transação)
+			if (response.showHtmlNoEffect) {
+
+				// Somente objetos
+				if (typeof response.showHtmlNoEffect === 'object') {
+					$.each(response.showHtmlNoEffect, function (key, value) {
+						$('[data-showHtmlNoEffect="' + value + '"]').show(0);
+					});
+				}
+			}
+
+			// Esconde html (hide sem transação)
+			if (response.hideHtmlNoEffect) {
+
+				// Somente objetos
+				if (typeof response.hideHtmlNoEffect === 'object') {
+					$.each(response.hideHtmlNoEffect, function (key, value) {
+						$('[data-hideHtmlNoEffect="' + value + '"]').hide(0);
 					});
 				}
 			}
@@ -287,9 +310,8 @@ const actions = (function () {
 		// Bloqueia o refresh da página
 		e.preventDefault();
 
-		// Ação: deletar
-		if ($(this).data('action') === 'delete')
-			remove($(this), $(this).data());
+		// Inicia requisição
+		request($(this), $(this).data());
 	});
 
 })();
@@ -309,7 +331,7 @@ const customFileInput = (function () {
 	 * Variáveis
 	 */
 
-	let input = '.custom-file-input';
+	let toggle = '.custom-file-input';
 	let label = '.custom-file-label';
 
 	/*
@@ -342,7 +364,7 @@ const customFileInput = (function () {
 	 */
 
 	// Monitora o evento change
-	$('html').on('change', input, function () {
+	$('html').on('change', toggle, function () {
 
 		// Inicia processo
 		init($(this));
@@ -352,8 +374,7 @@ const customFileInput = (function () {
 
 /**
  * Preview PDF
- * Faz uma requisição no servidor enviando uma estrutura HTML
- * para pré-visualizar em uma página pdf.
+ * Abre uma nova janela para visualização de algum documento PDF.
  */
 
 'use strict';
@@ -363,17 +384,23 @@ const previewPDF = (function () {
 	/*
 	 * Variáveis
 	 */
-	let button = '[data-previewPDF]';
+	let toggle = '[data-previewPDF]';
 
 	/*
 	 * Funções
 	 */
-	function request(el) {
 
-		// Campo que contém o conteúdo HTML
-		let field = $('[name="' + el.data('previewpdf') + '"]');
+	/**
+	 * openWindow. <p>
+	 * Abre uma nova janela carregando um documento pdf.
+	 * </p>
+	 *
+	 * @param el Objeto jQuery do botão
+	 */
+	function openWindow(el) {
 
-		window.open(BASE + '/letter/template/preview/' + el.data('id'), '_blank');
+		// Abre uma nova janela
+		window.open(el.data('previewpdf'), '_blank');
 	}
 
 	/*
@@ -381,8 +408,8 @@ const previewPDF = (function () {
 	 */
 
 	// Monitora o evento click
-	$('html').on('click', button, function () {
-		request($(this));
+	$('html').on('click', toggle, function () {
+		openWindow($(this));
 	});
 
 })();

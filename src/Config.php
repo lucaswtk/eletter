@@ -82,7 +82,10 @@ function errorMessage(int $error): string {
 		14 => 'Órgão não existe',
 		15 => 'Logo não encontrada',
 		16 => 'Sigla já cadastrada',
-		17 => 'Metadado não existe'
+		17 => 'Metadado não existe',
+		18 => 'Template não existe',
+		19 => 'Relação entre template e metadado já cadastrada',
+		20 => 'Relação entre template e metadado não existe'
 	];
 
 	return $message[$error];

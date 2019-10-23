@@ -72,6 +72,9 @@ $router->get('/template/edit/{id}', 'Template:edit', 'template.edit');
 $router->post('/template/create', 'Template:create', 'template.create');
 $router->post('/template/update', 'Template:create', 'template.update');
 $router->post('/template/delete', 'Template:delete', 'template.delete');
+$router->post('/template/createMetadata', 'Template:createMetadata', 'template.createMetadata');
+$router->post('/template/updateMetadata', 'Template:createMetadata', 'template.updateMetadata');
+$router->post('/template/deleteMetadata', 'Template:deleteMetadata', 'template.deleteMetadata');
 
 $router->get('/metadata/new', 'Field:new', 'field.new');
 $router->get('/metadata/all', 'Field:all', 'field.all');
